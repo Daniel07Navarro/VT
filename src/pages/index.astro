@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PostsList from "../components/PostsList.astro";
 
 const title = "VT";
-const mainTitle = "VIGILANCIA TECNOLOGICA";
+const mainTitle = "VIGILANCIA TECNOLÓGICA";
 
 let postsfetched = await Astro.glob("./posts/*.md");
 
@@ -23,6 +23,7 @@ if (postsfetched.length > 15) {
 <BaseLayout pageTitle={title}>
   <div class="hero">
     <h1 class="hero__title">{mainTitle}</h1>
+    <div class="img-container"></div>
     <p class="hero__paragraph">
       Explora la fascinante práctica de vigilancia tecnológica, un proceso dinámico que implica la atención constante a
       las innovaciones y avances tecnológicos para informar estrategias y decisiones empresariales.
@@ -36,6 +37,15 @@ if (postsfetched.length > 15) {
 </BaseLayout>
 
 <style>
+  .img-container {
+    background-image: url("/vt.jpg");
+    background-position: center;
+    background-size: cover;
+    background-position-y: 0;
+    height: 200px;
+    margin-block: 10px 40px;
+  }
+
   .hero {
     padding: 40px;
   }
