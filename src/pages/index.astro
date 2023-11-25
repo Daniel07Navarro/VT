@@ -7,6 +7,14 @@ const mainTitle = "VIGILANCIA TECNOLOGICA";
 
 let postsfetched = await Astro.glob("./posts/*.md");
 
+postsfetched = postsfetched.sort((a, b) => {
+  if (a.frontmatter.order >= b.frontmatter.order) {
+    return 1;
+  } else {
+    return -1;
+  }
+});
+
 if (postsfetched.length > 15) {
   postsfetched = postsfetched.slice(0, 15);
 }
@@ -15,7 +23,10 @@ if (postsfetched.length > 15) {
 <BaseLayout pageTitle={title}>
   <div class="hero">
     <h1 class="hero__title">{mainTitle}</h1>
-    <p class="hero__paragraph">Explora la vigilancia tecnologica</p>
+    <p class="hero__paragraph">
+      Explora la fascinante práctica de vigilancia tecnológica, un proceso dinámico que implica la atención constante a
+      las innovaciones y avances tecnológicos para informar estrategias y decisiones empresariales.
+    </p>
   </div>
   <div class="posts">
     <h2 class="posts__title">Contenido</h2>
