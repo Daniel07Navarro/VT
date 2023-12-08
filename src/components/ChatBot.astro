@@ -1,0 +1,77 @@
+---
+import "../styles/chatbot.css";
+---
+
+<div class="all">
+  <button class="button-toggle" data-button-close>Asistente virtual</button>
+  <div class="chat-box dont-show">
+    <div class="chat-box-header">
+      <h3>Some Chat Room<br /><small>Asistente virtual</small></h3>
+    </div>
+    <div id="chat_box_body" class="chat-box-body">
+      <div id="chat_messages"></div>
+    </div>
+    <div id="typing">
+      <div><span></span> <span></span> <span></span> <span class="n">Someone</span> is typing...</div>
+    </div>
+    <div class="chat-box-footer">
+      <textarea id="chat_input" placeholder="Enter your message here..."></textarea>
+      <button id="send">
+        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+          <path fill="#006ae3" d="M2,21L23,12L2,3V10L17,12L2,14V21Z"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // a functions the toogle the visibility of the chat-box element
+
+  function toggleChatBox() {
+    let chatBox = document.querySelector(".chat-box");
+    chatBox.classList.toggle("dont-show");
+  }
+
+  let buttonClose = document.querySelector("[data-button-close]").addEventListener("click", toggleChatBox);
+
+  // functions that handle the chat-box messages
+
+  function sendMessage() {
+    let chatInput = document.querySelector("#chat_input") as HTMLInputElement;
+    let chatMessages = document.querySelector("#chat_messages") as HTMLDivElement;
+
+    if (chatInput.value.length > 0) {
+      let message = document.createElement("div");
+      message.classList.add("message", "my-message");
+      message.innerHTML = chatInput.value;
+      chatMessages.appendChild(message);
+      chatInput.value = "";
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    receiveMessage();
+  }
+
+  function receiveMessage() {
+    let chatMessages = document.querySelector("#chat_messages");
+    let typing = document.querySelector("#typing");
+
+    setTimeout(function () {
+      let messages = [
+        "Hola, soy tu asistente virtual, ¿en qué puedo ayudarte?",
+        "Este proyecto se trata sobre la vigilancia tecnológicia y cómo puede ser aplicada en el perú",
+        "Cuando hablamos de vigilancia tecnológica, nos referimos a la recolección, análisis y difusión de información sobre desarrollos científicos y tecnológicos que puedan ser de interés para una organización.",
+        "Los integrantes de este proyecto son las cebollitas de la informática, Daniel Navarro Tantalean, Fernando Vegas Villar, Jhony Tenorio Casiano y Marjorie Luque Cárdenas"
+      ];
+
+      typing.classList.remove("active");
+      let message = document.createElement("div");
+      message.classList.add("message", "other-message");
+      message.innerHTML = messages[Math.floor(Math.random() * messages.length)];
+      chatMessages.appendChild(message);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 2000);
+  }
+
+  let sendButton = document.querySelector("#send").addEventListener("click", sendMessage);
+</script>
