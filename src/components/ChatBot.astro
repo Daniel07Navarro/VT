@@ -3,7 +3,6 @@ import "../styles/chatbot.css";
 ---
 
 <div class="all">
-  <button class="button-toggle" data-button-close>Asistente virtual</button>
   <div class="chat-box dont-show">
     <div class="chat-box-header">
       <h3>Some Chat Room<br /><small>Asistente virtual</small></h3>
@@ -23,10 +22,12 @@ import "../styles/chatbot.css";
       </button>
     </div>
   </div>
+  <button class="button-toggle" data-button-close>Asistente virtual</button>
 </div>
 
 <script>
   // a functions the toogle the visibility of the chat-box element
+  localStorage.setItem("chat", "0");
 
   function toggleChatBox() {
     let chatBox = document.querySelector(".chat-box");
@@ -56,6 +57,8 @@ import "../styles/chatbot.css";
     let chatMessages = document.querySelector("#chat_messages");
     let typing = document.querySelector("#typing");
 
+    let answerNumber = localStorage.getItem("chat");
+    
     setTimeout(function () {
       let messages = [
         "Hola, soy tu asistente virtual, ¿en qué puedo ayudarte?",
@@ -67,10 +70,12 @@ import "../styles/chatbot.css";
       typing.classList.remove("active");
       let message = document.createElement("div");
       message.classList.add("message", "other-message");
-      message.innerHTML = messages[Math.floor(Math.random() * messages.length)];
+      message.innerHTML = messages[answerNumber];
       chatMessages.appendChild(message);
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }, 2000);
+
+    localStorage.setItem("chat", ((parseInt(answerNumber) + 1) % 4).toString());
   }
 
   let sendButton = document.querySelector("#send").addEventListener("click", sendMessage);
